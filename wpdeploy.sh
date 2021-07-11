@@ -16,7 +16,7 @@ IFS=$'\n\t'
 #####################################################################
 # Global Variables
 #####################################################################
-MYSQL_ROOT_PASSWORD = 
+MYSQL_ROOT_PASSWORD = ''
 
 
 #####################################################################
@@ -24,7 +24,6 @@ MYSQL_ROOT_PASSWORD =
 #####################################################################
 function update_and_clean() {
 	echo " Cleaning and Updating APT."
-
 	apt update
 	apt upgrade -y
 	apt autoclean -y
@@ -36,7 +35,6 @@ function update_and_clean() {
 #####################################################################
 function restart_all_services() {
 	echo " Restarting Nginx, MariaDB, Redis Server and PHP services."
-
 	/usr/sbin/service nginx restart
 	/usr/sbin/service mysql restart
 	/usr/sbin/service redis-server restart
@@ -48,7 +46,6 @@ function restart_all_services() {
 #####################################################################
 function pre_install_debs() {
 	echo " Configuring APT and configuring prerequisites "
-
 	## Install Prerequistes packages
 	apt install apt-transport-https curl wget git gnupg2 dirmngr expect sudo lsb-release ca-certificates software-properties-common zip unzip screen ffmpeg ghostscript libfile-fcntllock-perl locate htop tree -y
 
@@ -76,7 +73,6 @@ function install_configure_nginx() {
 	apt remove nginx nginx-common nginx-full -y --allow-change-held-packages
 	apt install nginx -y
 
-	## Enable NGINX autostart
 	systemctl enable nginx.service
 
 	## Configure Nginx
